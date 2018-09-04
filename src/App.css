@@ -19,9 +19,11 @@ body {
 }
 
 .user {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #ddd;
 }
 
 .scoreBoard {
-  border: 2px solid #555;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
 }

@@ -8,7 +8,7 @@ export default class Scoreboard extends Component {
   render() {
     const { user, score, updateScore } = this.props
     return (
-      <div clssName="scoreBoard">
+      <div className="scoreBoard">
         <div className="title">
           <User name={user} />
           <Score value={score} />

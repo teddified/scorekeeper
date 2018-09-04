@@ -10,7 +10,8 @@
   height: 100px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 60px 60px;
+  grid-template-rows: 45px 45px;
+  grid-gap: 10px;
 }
 
 .resetButton {
@@ -24,4 +25,9 @@
   color: #660000;
   font-size: 18px;
   font-weight: bold;
+}
+
+.Button {
+  border-radius: 5px;
+  outline: none;
 }
