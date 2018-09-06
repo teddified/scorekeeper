@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import SummaryCard from './SummaryCard'
+import Button from './Button'
 
 export default class SummaryScreen extends Component {
   render() {
-    const { players } = this.props
+    const { players, backToStart, startGame } = this.props
     return (
       <React.Fragment>
         {players.map((player, index) => {
@@ -13,6 +14,8 @@ export default class SummaryScreen extends Component {
             </React.Fragment>
           )
         })}
+        <Button onClick={backToStart}>Back</Button>
+        <Button onClick={startGame}>Add Round</Button>
       </React.Fragment>
     )
   }

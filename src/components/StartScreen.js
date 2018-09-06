@@ -76,11 +76,11 @@ export default class StartScreen extends Component {
   }
 
   renderCheckStartable() {
-    const { players, startGame, deleteAll } = this.props
+    const { players, startSummary, deleteAll } = this.props
     if (players.length > 0) {
       return (
         <React.Fragment>
-          <StyledPlayButton onClick={startGame}>Play!</StyledPlayButton>
+          <StyledPlayButton onClick={startSummary}>Play!</StyledPlayButton>
           <StyledDeleteAllButton onClick={deleteAll}>
             Reset players
           </StyledDeleteAllButton>

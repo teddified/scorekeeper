@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { combineReducers } from 'redux'
 
 const StyledRoundBar = styled.div`
   width: 400px;
@@ -31,19 +30,14 @@ const StyledPointSection = styled.div`
 `
 
 export default class RoundBar extends Component {
-  render() {
+  allRounds = () => {
     const { player } = this.props
-    const total =
-      player.score.reduce((acc, cur) => Number(acc) + Number(cur), 0) || 0
-    return (
-      <StyledRoundBar>
-        <StyledPointSection>{total}</StyledPointSection>
-        <StyledPointSection>3</StyledPointSection>
-        <StyledPointSection>4</StyledPointSection>
-        <StyledPointSection>2</StyledPointSection>
-        <StyledPointSection>1</StyledPointSection>
-        <StyledPointSection>20</StyledPointSection>
-      </StyledRoundBar>
-    )
+    return player.score.forEach(round => {
+      return <StyledPointSection>{round}</StyledPointSection>
+    })
+  }
+
+  render() {
+    return <StyledRoundBar>{this.allRounds()}</StyledRoundBar>
   }
 }

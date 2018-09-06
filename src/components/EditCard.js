@@ -14,17 +14,32 @@ const StyledEditCard = styled.div`
 `
 
 export default class EditCard extends Component {
-  render() {
-    const { name, score, updateScore, deletePlayer } = this.props
+  renderCard() {
+    const {
+      name,
+      score,
+      updateScore,
+      deletePlayer,
+      players,
+      saveRound,
+      startSummary,
+    } = this.props
     return (
       <StyledEditCard>
         <div className="title">
-          <User name={name} />
+          <User name={name} players={players} />
           <Score score={score} />
         </div>
         <ScoreUpdater onClick={updateScore} />
         <Button onClick={deletePlayer}>delete</Button>
+        <Button score={score} onClick={(saveRound, startSummary)}>
+          saveRound
+        </Button>
       </StyledEditCard>
     )
+  }
+
+  render() {
+    return <React.Fragment>{this.renderCard()}</React.Fragment>
   }
 }

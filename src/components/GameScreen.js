@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import EditCard from './EditCard'
 import ResetButton from './ResetButton'
 import styled from 'styled-components'
-import SummaryScreen from './SummaryScreen'
 
 const StyledBackButton = styled.button`
   width: 100px;
@@ -15,18 +14,15 @@ const StyledBackButton = styled.button`
 `
 
 export default class GameScreen extends Component {
-  state = {
-    showSummary: true,
-  }
-
   renderEditCard() {
-    console.log('edit')
     const {
       players,
       updateScore,
       deletePlayer,
       resetScore,
       backToStart,
+      saveRound,
+      startSummary,
     } = this.props
 
     return (
@@ -36,8 +32,11 @@ export default class GameScreen extends Component {
             <EditCard
               key={index}
               {...name}
+              players={players}
               updateScore={value => updateScore(index, value)}
               deletePlayer={() => deletePlayer(index)}
+              saveRound={() => saveRound}
+              startSummary={startSummary}
             />
           )
         })}
@@ -47,16 +46,7 @@ export default class GameScreen extends Component {
     )
   }
 
-  renderSummary() {
-    const { players } = this.props
-    return <SummaryScreen players={players} />
-  }
-
   render() {
-    return (
-      <React.Fragment>
-        {this.state.showSummary ? this.renderSummary() : this.renderEditCard()}
-      </React.Fragment>
-    )
+    return <React.Fragment>{this.renderEditCard()}</React.Fragment>
   }
 }

@@ -2,109 +2,139 @@ import React, { Component } from 'react'
 import { load, save } from '../services'
 import GameScreen from './GameScreen'
 import StartScreen from './StartScreen'
+import SummaryScreen from './SummaryScreen'
 
 import './App.css'
 import './Score.css'
 
 export default class App extends Component {
   state = {
-    showStartScreen: true,
-    users: load('users') || [],
+    showScreen: 'start',
+    players: load('players') || [],
+    roundscore: 0,
+    round: 1,
   }
 
   deletePlayer = index => {
-    const users = this.state.users
+    const players = this.state.players
     this.setState(
       {
-        users: [...users.slice(0, index), ...users.slice(index + 1)],
+        players: [...players.slice(0, index), ...players.slice(index + 1)],
       },
-      this.saveUsers
+      this.savePlayers
     )
   }
 
   deleteAll = () => {
     this.setState(
       {
-        users: [],
+        players: [],
       },
-      this.saveUsers
+      this.savePlayers
     )
   }
 
   addPlayer = inputValue => {
-    const users = this.state.users
+    const players = this.state.players
     this.setState(
       {
-        users: [
-          ...users,
+        players: [
+          ...players,
           {
             name: inputValue,
-            score: [0],
+            score: [],
+            roundScore: 0,
           },
         ],
       },
-      this.saveUsers
+      this.savePlayers
     )
   }
 
   updateScore = (index, value) => {
-    const users = this.state.users
-    const name = users[index]
+    const players = this.state.players
+    const name = players[index]
     this.setState(
       {
-        users: [
-          ...users.slice(0, index),
+        players: [
+          ...players.slice(0, index),
           { ...name, score: [parseInt(name.score) + value] },
-          ...users.slice(index + 1),
+          ...players.slice(index + 1),
         ],
       },
-      this.saveUsers
+      this.savePlayers
     )
   }
 
   resetScore = () => {
     this.setState(
       {
-        users: this.state.users.map(name => ({
+        players: this.state.players.map(name => ({
           ...name,
           score: [0],
         })),
       },
-      this.saveUsers
+      this.savePlayers
     )
   }
 
   startGame = () => {
     this.setState(
       {
-        showStartScreen: false,
+        showScreen: 'game',
       },
-      this.saveUsers
+      this.savePlayers
     )
   }
 
   backToStart = () => {
     this.setState(
       {
-        showStartScreen: true,
-        users: [],
+        showScreen: 'start',
+        players: [],
       },
-      this.saveUsers
+      this.savePlayers
     )
   }
 
-  saveUsers() {
-    save('users', this.state.users)
+  startSummary = () => {
+    this.setState({
+      showScreen: 'summary',
+    })
+  }
+
+  backToGame = () => {
+    this.setState({
+      showScreen: 'game',
+    })
+  }
+
+  saveRound = () => {
+    console.log(this.state)
+    this.setState({
+      players: this.state.players.map(player => ({
+        ...player,
+        score: [...player.score, player.roundScore],
+        roundScore: 0,
+        round: this.state.players.round + 1,
+      })),
+    })
+  }
+
+  savePlayers() {
+    save('players', this.state.players)
   }
 
   renderActiveGame() {
     return (
       <GameScreen
-        players={this.state.users}
+        players={this.state.players}
         updateScore={this.updateScore}
         deletePlayer={this.deletePlayer}
         resetScore={this.resetScore}
         backToStart={this.backToStart}
+        startSummary={this.startSummary}
+        saveRound={this.saveRound}
       />
     )
   }
@@ -112,21 +142,43 @@ export default class App extends Component {
   renderStartScreen() {
     return (
       <StartScreen
-        players={this.state.users}
+        players={this.state.players}
         addPlayer={this.addPlayer}
         deletePlayer={this.deletePlayer}
-        startGame={this.startGame}
+        startSummary={this.startSummary}
         deleteAll={this.deleteAll}
       />
     )
   }
 
-  render() {
-    const { showStartScreen } = this.state
+  renderSummary() {
     return (
-      <div className="app">
-        {showStartScreen ? this.renderStartScreen() : this.renderActiveGame()}
-      </div>
+      <SummaryScreen
+        players={this.state.players}
+        backToGame={this.backToGame}
+        startGame={this.startGame}
+        saveRound={this.saveRound}
+        backToStart={this.backToStart}
+      />
     )
+  }
+
+  render() {
+    let render
+    switch (this.state.showScreen) {
+      case 'start':
+        render = this.renderStartScreen()
+        break
+      case 'game':
+        render = this.renderActiveGame()
+        break
+      case 'summary':
+        render = this.renderSummary()
+        break
+      default:
+        render = this.renderStartScreen()
+    }
+
+    return <div className="app">{render}</div>
   }
 }

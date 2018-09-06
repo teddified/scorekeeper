@@ -15,20 +15,15 @@ const StyledPlayerHeader = styled.div`
 `
 
 export default class PlayerHeader extends Component {
-  // renderTotalscore(totalscore) {
-  //   return {totalscore.reduce((acc, curr)=> {
-  //     return acc + curr
-  //   })}
-  // }
-
   render() {
     const { player } = this.props
-    console.log(player.name)
+    const total =
+      player.score.reduce((acc, cur) => Number(acc) + Number(cur), 0) || 0
+
     return (
       <StyledPlayerHeader>
         <span>{player.name}</span>
-        {/* {() => this.renderTotalscore(player.score)} */}
-        <span>{player.score.toString()}</span>
+        <span>{total}</span>
       </StyledPlayerHeader>
     )
   }
