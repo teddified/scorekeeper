@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 export default class Score extends Component {
   render() {
-    return <div className="score">{this.props.value}</div>
+    const { score } = this.props
+    return <div className="score">{score}</div>
   }
 }

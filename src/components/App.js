@@ -35,7 +35,13 @@ export default class App extends Component {
     const users = this.state.users
     this.setState(
       {
-        users: [...users, { name: inputValue, score: 0 }],
+        users: [
+          ...users,
+          {
+            name: inputValue,
+            score: [0],
+          },
+        ],
       },
       this.saveUsers
     )
@@ -48,7 +54,7 @@ export default class App extends Component {
       {
         users: [
           ...users.slice(0, index),
-          { ...name, score: name.score + value },
+          { ...name, score: [parseInt(name.score) + value] },
           ...users.slice(index + 1),
         ],
       },
@@ -59,7 +65,10 @@ export default class App extends Component {
   resetScore = () => {
     this.setState(
       {
-        users: this.state.users.map(name => ({ ...name, score: 0 })),
+        users: this.state.users.map(name => ({
+          ...name,
+          score: [0],
+        })),
       },
       this.saveUsers
     )
