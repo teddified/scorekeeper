@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import EditCard from './EditCard'
 import ResetButton from './ResetButton'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import Button from './Button'
 
 const StyledBackButton = styled.button`
   width: 100px;
@@ -20,28 +22,32 @@ export default class GameScreen extends Component {
       updateScore,
       deletePlayer,
       resetScore,
-      backToStart,
       saveRound,
       startSummary,
     } = this.props
 
     return (
       <React.Fragment>
-        {players.map((name, index) => {
+        {players.map((player, index) => {
           return (
             <EditCard
               key={index}
-              {...name}
+              // {...player}
+              player={player}
               players={players}
               updateScore={value => updateScore(index, value)}
               deletePlayer={() => deletePlayer(index)}
-              saveRound={() => saveRound}
               startSummary={startSummary}
             />
           )
         })}
+        <Link to="/summary">
+          <Button onClick={saveRound}>Save Round</Button>
+        </Link>
         <ResetButton onClick={resetScore}>Reset</ResetButton>
-        <StyledBackButton onClick={backToStart}>Back</StyledBackButton>
+        <Link to="/summary">
+          <StyledBackButton>Back</StyledBackButton>
+        </Link>
       </React.Fragment>
     )
   }

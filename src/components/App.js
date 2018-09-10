@@ -3,6 +3,7 @@ import { load, save } from '../services'
 import GameScreen from './GameScreen'
 import StartScreen from './StartScreen'
 import SummaryScreen from './SummaryScreen'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import './App.css'
 import './Score.css'
@@ -11,7 +12,6 @@ export default class App extends Component {
   state = {
     showScreen: 'start',
     players: load('players') || [],
-    roundscore: 0,
     round: 1,
   }
 
@@ -43,7 +43,7 @@ export default class App extends Component {
           {
             name: inputValue,
             score: [],
-            roundScore: 0,
+            roundscore: 0,
           },
         ],
       },
@@ -53,12 +53,12 @@ export default class App extends Component {
 
   updateScore = (index, value) => {
     const players = this.state.players
-    const name = players[index]
+    const player = players[index]
     this.setState(
       {
         players: [
           ...players.slice(0, index),
-          { ...name, score: [parseInt(name.score) + value] },
+          { ...player, roundscore: player.roundscore + value },
           ...players.slice(index + 1),
         ],
       },
@@ -69,9 +69,9 @@ export default class App extends Component {
   resetScore = () => {
     this.setState(
       {
-        players: this.state.players.map(name => ({
-          ...name,
-          score: [0],
+        players: this.state.players.map(player => ({
+          ...player,
+          roundscore: 0,
         })),
       },
       this.savePlayers
@@ -97,26 +97,13 @@ export default class App extends Component {
     )
   }
 
-  startSummary = () => {
-    this.setState({
-      showScreen: 'summary',
-    })
-  }
-
-  backToGame = () => {
-    this.setState({
-      showScreen: 'game',
-    })
-  }
-
   saveRound = () => {
-    console.log(this.state)
     this.setState({
       players: this.state.players.map(player => ({
         ...player,
-        score: [...player.score, player.roundScore],
-        roundScore: 0,
-        round: this.state.players.round + 1,
+        score: [...player.score, player.roundscore],
+        roundscore: 0,
+        // round: this.state.players.round + 1,
       })),
     })
   }
@@ -125,7 +112,7 @@ export default class App extends Component {
     save('players', this.state.players)
   }
 
-  renderActiveGame() {
+  renderActiveGame = () => {
     return (
       <GameScreen
         players={this.state.players}
@@ -139,7 +126,7 @@ export default class App extends Component {
     )
   }
 
-  renderStartScreen() {
+  renderStartScreen = () => {
     return (
       <StartScreen
         players={this.state.players}
@@ -151,7 +138,7 @@ export default class App extends Component {
     )
   }
 
-  renderSummary() {
+  renderSummary = () => {
     return (
       <SummaryScreen
         players={this.state.players}
@@ -179,6 +166,15 @@ export default class App extends Component {
         render = this.renderStartScreen()
     }
 
-    return <div className="app">{render}</div>
+    return (
+      <Router>
+        <div className="app">
+          <Route exact path="/" render={this.renderStartScreen} />
+          <Route exact path="/summary" render={this.renderSummary} />
+          <Route exact path="/game" render={this.renderActiveGame} />
+          {/* {render} */}
+        </div>
+      </Router>
+    )
   }
 }

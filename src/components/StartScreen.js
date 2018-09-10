@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PlayerSetup from './PlayerSetup'
 import { StyledButton } from './Button'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const StyledApp = styled.div`
   display: flex;
@@ -80,7 +81,9 @@ export default class StartScreen extends Component {
     if (players.length > 0) {
       return (
         <React.Fragment>
-          <StyledPlayButton onClick={startSummary}>Play!</StyledPlayButton>
+          <Link to="/summary">
+            <StyledPlayButton onClick={startSummary}>Play!</StyledPlayButton>
+          </Link>
           <StyledDeleteAllButton onClick={deleteAll}>
             Reset players
           </StyledDeleteAllButton>

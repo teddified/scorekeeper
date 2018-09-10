@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SummaryCard from './SummaryCard'
 import Button from './Button'
+import { Link } from 'react-router-dom'
 
 export default class SummaryScreen extends Component {
   render() {
@@ -14,8 +15,12 @@ export default class SummaryScreen extends Component {
             </React.Fragment>
           )
         })}
-        <Button onClick={backToStart}>Back</Button>
-        <Button onClick={startGame}>Add Round</Button>
+        <Link to="/">
+          <Button onClick={backToStart}>Back</Button>
+        </Link>
+        <Link to="/game">
+          <Button onClick={startGame}>Add Round</Button>
+        </Link>
       </React.Fragment>
     )
   }
