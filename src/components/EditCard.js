@@ -13,6 +13,13 @@ const StyledEditCard = styled.div`
   background: white;
 `
 
+const StyledScore = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 72px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+`
+
 export default class EditCard extends Component {
   renderCard() {
     const { updateScore, deletePlayer, player } = this.props
@@ -21,7 +28,8 @@ export default class EditCard extends Component {
       <StyledEditCard>
         <div className="title">
           <User player={player} />
-          <Score player={player} />
+          <StyledScore>{player.roundscore}</StyledScore>
+          {/* <Score player={player} /> */}
         </div>
         <ScoreUpdater onClick={updateScore} />
         <Button onClick={deletePlayer}>delete</Button>

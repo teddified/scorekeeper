@@ -78,15 +78,6 @@ export default class App extends Component {
     )
   }
 
-  startGame = () => {
-    this.setState(
-      {
-        showScreen: 'game',
-      },
-      this.savePlayers
-    )
-  }
-
   backToStart = () => {
     this.setState(
       {
@@ -101,7 +92,7 @@ export default class App extends Component {
     this.setState({
       players: this.state.players.map(player => ({
         ...player,
-        score: [...player.score, player.roundscore],
+        score: [player.roundscore, ...player.score],
         roundscore: 0,
         // round: this.state.players.round + 1,
       })),
@@ -151,21 +142,6 @@ export default class App extends Component {
   }
 
   render() {
-    let render
-    switch (this.state.showScreen) {
-      case 'start':
-        render = this.renderStartScreen()
-        break
-      case 'game':
-        render = this.renderActiveGame()
-        break
-      case 'summary':
-        render = this.renderSummary()
-        break
-      default:
-        render = this.renderStartScreen()
-    }
-
     return (
       <Router>
         <div className="app">

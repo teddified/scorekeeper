@@ -1,11 +1,27 @@
 import React, { Component } from 'react'
 import SummaryCard from './SummaryCard'
-import Button from './Button'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+const StyledBackButton = styled.button`
+  width: 100px;
+  height: 40px;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+  background: aliceblue;
+  border-radius: 10px;
+`
+
+const StyledButtonSection = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`
 
 export default class SummaryScreen extends Component {
   render() {
-    const { players, backToStart, startGame } = this.props
+    const { players, backToStart } = this.props
     return (
       <React.Fragment>
         {players.map((player, index) => {
@@ -15,12 +31,14 @@ export default class SummaryScreen extends Component {
             </React.Fragment>
           )
         })}
-        <Link to="/">
-          <Button onClick={backToStart}>Back</Button>
-        </Link>
-        <Link to="/game">
-          <Button onClick={startGame}>Add Round</Button>
-        </Link>
+        <StyledButtonSection>
+          <Link to="/">
+            <StyledBackButton onClick={backToStart}>New Game</StyledBackButton>
+          </Link>
+          <Link to="/game">
+            <StyledBackButton>Add Round</StyledBackButton>
+          </Link>
+        </StyledButtonSection>
       </React.Fragment>
     )
   }

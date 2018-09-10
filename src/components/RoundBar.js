@@ -8,9 +8,11 @@ const StyledRoundBar = styled.div`
   border: 2px solid #ddd;
   border-radius: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: row-reverse;
-  overflow: hidden;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  box-sizing: border-box;
 `
 
 const StyledPointSection = styled.div`
@@ -19,11 +21,9 @@ const StyledPointSection = styled.div`
   align-items: center;
   border-left: 4px solid #ddd;
   height: 100px;
-  width: 100%;
+  width: 100px;
+  min-width: 100px;
 
-  &:last-child {
-    border: none;
-  }
   &:first-child {
     background: #eee;
   }
@@ -32,9 +32,18 @@ const StyledPointSection = styled.div`
 export default class RoundBar extends Component {
   allRounds = () => {
     const { player } = this.props
-    return player.score.forEach(round => {
-      return <StyledPointSection>{round}</StyledPointSection>
-    })
+    let roundscori = player.score
+    roundscori = roundscori.length ? roundscori : [0]
+    return (
+      <React.Fragment>
+        {roundscori.map((round, index) => (
+          <StyledPointSection key={index}>{round}</StyledPointSection>
+        ))}
+      </React.Fragment>
+
+      // <StyledPointSection>{round}</StyledPointSection>
+      // <StyledPointSection key={index}>{round}</StyledPointSection>
+    )
   }
 
   render() {

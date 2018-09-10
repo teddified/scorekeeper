@@ -10,7 +10,7 @@ const StyledResetButton = styled.button`
   width: 100px;
   height: 40px;
   color: #660000;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
 `
 
