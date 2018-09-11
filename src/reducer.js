@@ -15,19 +15,22 @@ export default function(state = initialState, action = {}) {
     case ACTIONS.ADD_PLAYER:
       return {
         ...state,
-        players: [{ name: action.payload.name, roundscore: 0, score: [] }],
+        players: [
+          ...state.players,
+          { name: action.payload.name, roundscore: 0, score: [] },
+        ],
       }
     case ACTIONS.UPDATE_SCORE:
-      const players = state.players
       const { index, roundscore } = action.payload
+      const players = state.players
       return {
         ...state,
         players: [
           ...players.slice(0, index),
           {
-            name: 'jerry',
-            score: 0,
-            roundscore: players[0].score + roundscore,
+            name: players[index].name,
+            score: players[index].score,
+            roundscore: players[index].score + roundscore,
           },
           ...players.slice(index + 1),
         ],
@@ -40,14 +43,16 @@ export default function(state = initialState, action = {}) {
           roundscore: 0,
         })),
       }
-    // } else if (action.type === 'SAVE_ROUND') {
-    //   return {
-    //     players: this.state.players.map(player => ({
-    //       ...player,
-    //       score: [action.payload.roundscore, ...player.score],
-    //       roundscore: 0,
-    //     })),
-    //   }
+    case ACTIONS.SAVE_ROUND:
+      console.log(state.players)
+      return {
+        players: state.players.map(player => ({
+          ...player,
+          score: [...player.score, state.players.roundscore],
+          roundscore: 0,
+        })),
+      }
+    default:
+      return state
   }
-  return state
 }

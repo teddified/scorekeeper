@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import Score from './Score'
 import User from './User'
 import Button from './Button'
 import ScoreUpdater from './ScoreUpdater'

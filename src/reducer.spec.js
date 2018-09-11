@@ -14,7 +14,7 @@ describe('reducer', () => {
     expect(reducer(state)).toBe(state)
   })
 
-  describe('ADD_PLAYER', () => {
+  describe(ACTIONS.ADD_PLAYER, () => {
     it('creates a player with a name', () => {
       const state = {
         players: [],
@@ -27,7 +27,7 @@ describe('reducer', () => {
     })
   })
 
-  describe('DELETE_ALL_PLAYERS', () => {
+  describe(ACTIONS.DELETE_ALL_PLAYERS, () => {
     it('makes the players an empty array', () => {
       const state = {
         players: [{ foo: 'bar' }, { baz: 'foobar' }],
@@ -39,10 +39,10 @@ describe('reducer', () => {
     })
   })
 
-  describe('UPDATE_SCORE', () => {
+  describe(ACTIONS.UPDATE_SCORE, () => {
     it('add roundscore to totalscore', () => {
       const state = {
-        players: [{ name: 'jerry', score: 0, roundscore: 0 }],
+        players: [{ name: 'jerry', score: [0], roundscore: 0 }],
       }
 
       const action = {
@@ -51,20 +51,33 @@ describe('reducer', () => {
       }
 
       expect(reducer(state, action)).toEqual({
-        players: [{ name: 'jerry', score: 0, roundscore: 24 }],
+        players: [{ name: 'jerry', score: [0], roundscore: 24 }],
       })
     })
   })
-  describe('RESET_SCORE', () => {
+  describe(ACTIONS.RESET_SCORE, () => {
     it('put score in players to 0', () => {
       const state = {
-        players: [{ name: 'tom', score: 10, roundscore: 12 }],
+        players: [{ name: 'tom', score: [10], roundscore: 12 }],
       }
 
       const action = { type: ACTIONS.RESET_SCORE }
 
       expect(reducer(state, action)).toEqual({
-        players: [{ name: 'tom', score: 10, roundscore: 0 }],
+        players: [{ name: 'tom', score: [10], roundscore: 0 }],
+      })
+    })
+  })
+  describe(ACTIONS.SAVE_ROUND, () => {
+    it('add roundscore to score and delete roundscore', () => {
+      const state = {
+        players: [{ name: 'tom', score: [], roundscore: 10 }],
+      }
+
+      const action = { type: ACTIONS.SAVE_ROUND }
+
+      expect(reducer(state, action)).toEqual({
+        players: [{ name: 'tom', score: [10], roundscore: 0 }],
       })
     })
   })
