@@ -1,4 +1,5 @@
 import reducer from './reducer'
+import ACTIONS from './actions'
 
 describe('reducer', () => {
   it('always returns a state', () => {
@@ -18,7 +19,7 @@ describe('reducer', () => {
       const state = {
         players: [],
       }
-      const action = { type: 'ADD_PLAYER', payload: { name: 'Foobar' } }
+      const action = { type: ACTIONS.ADD_PLAYER, payload: { name: 'Foobar' } }
 
       expect(reducer(state, action)).toEqual({
         players: [{ name: 'Foobar', roundscore: 0, score: [] }],
@@ -32,7 +33,7 @@ describe('reducer', () => {
         players: [{ foo: 'bar' }, { baz: 'foobar' }],
       }
 
-      const action = { type: 'DELETE_ALL_PLAYERS' }
+      const action = { type: ACTIONS.DELETE_ALL_PLAYERS }
 
       expect(reducer(state, action)).toEqual({ players: [] })
     })
@@ -45,7 +46,7 @@ describe('reducer', () => {
       }
 
       const action = {
-        type: 'UPDATE_SCORE',
+        type: ACTIONS.UPDATE_SCORE,
         payload: { roundscore: 24, index: 0 },
       }
 
@@ -60,7 +61,7 @@ describe('reducer', () => {
         players: [{ name: 'tom', score: 10, roundscore: 12 }],
       }
 
-      const action = { type: 'RESET_SCORE' }
+      const action = { type: ACTIONS.RESET_SCORE }
 
       expect(reducer(state, action)).toEqual({
         players: [{ name: 'tom', score: 10, roundscore: 0 }],

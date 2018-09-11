@@ -21,6 +21,7 @@
     "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
+    "jest-localstorage-mock": "^2.2.0",
     "@storybook/addon-actions": "^3.4.10",
     "@storybook/addon-knobs": "^3.4.10",
     "@storybook/addon-links": "^3.4.10",
