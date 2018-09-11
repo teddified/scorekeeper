@@ -42,16 +42,24 @@ describe('reducer', () => {
   describe(ACTIONS.UPDATE_SCORE, () => {
     it('add roundscore to totalscore', () => {
       const state = {
-        players: [{ name: 'jerry', score: [0], roundscore: 0 }],
+        players: [
+          { name: 'jerry', score: [1, 2, 3], roundscore: 8 },
+          { name: 'tom', score: [3, 2, 3], roundscore: 3 },
+          { name: 'tim', score: [2, 2, 3], roundscore: 2 },
+        ],
       }
 
       const action = {
         type: ACTIONS.UPDATE_SCORE,
-        payload: { roundscore: 24, index: 0 },
+        payload: { value: 24, index: 1 },
       }
 
       expect(reducer(state, action)).toEqual({
-        players: [{ name: 'jerry', score: [0], roundscore: 24 }],
+        players: [
+          { name: 'jerry', score: [1, 2, 3], roundscore: 8 },
+          { name: 'tom', score: [3, 2, 3], roundscore: 27 },
+          { name: 'tim', score: [2, 2, 3], roundscore: 2 },
+        ],
       })
     })
   })
@@ -78,6 +86,19 @@ describe('reducer', () => {
 
       expect(reducer(state, action)).toEqual({
         players: [{ name: 'tom', score: [10], roundscore: 0 }],
+      })
+    })
+  })
+  describe(ACTIONS.DELETE_PLAYER, () => {
+    it('delete one entry in players', () => {
+      const state = {
+        players: [{ name: 'tom', score: [], roundscore: 10 }],
+      }
+
+      const action = { type: ACTIONS.DELETE_PLAYER, payload: { index: 0 } }
+
+      expect(reducer(state, action)).toEqual({
+        players: [],
       })
     })
   })

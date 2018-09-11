@@ -21,7 +21,7 @@ const StyledButtonSection = styled.div`
 
 export default class SummaryScreen extends Component {
   render() {
-    const { players, backToStart } = this.props
+    const { players, deleteAllPlayers } = this.props
     return (
       <React.Fragment>
         {players.map((player, index) => {
@@ -33,7 +33,9 @@ export default class SummaryScreen extends Component {
         })}
         <StyledButtonSection>
           <Link to="/">
-            <StyledBackButton onClick={backToStart}>New Game</StyledBackButton>
+            <StyledBackButton onClick={deleteAllPlayers}>
+              New Game
+            </StyledBackButton>
           </Link>
           <Link to="/game">
             <StyledBackButton>Add Round</StyledBackButton>

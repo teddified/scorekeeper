@@ -1,16 +1,28 @@
 import React, { Component } from 'react'
-import { createStore } from 'redux'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { applyMiddleware, createStore } from 'redux'
+import styled from 'styled-components'
+import {
+  addPlayer,
+  deleteAllPlayers,
+  deletePlayer,
+  resetScore,
+  saveRound,
+  updateScore,
+} from '../actions'
+import { saveToLocalStorage } from '../middleware'
 import reducer from '../reducer'
-import ACTIONS, { addPlayer, deletePlayer } from '../actions'
 import GameScreen from './GameScreen'
 import StartScreen from './StartScreen'
 import SummaryScreen from './SummaryScreen'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import './App.css'
-import './Score.css'
+const StyledApp = styled.div`
+  margin: 0 auto;
+  width: 400px;
+  border-radius: 10px;
+`
 
-const store = createStore(reducer)
+const store = createStore(reducer, applyMiddleware(saveToLocalStorage))
 
 export default class App extends Component {
   componentDidMount() {
@@ -19,46 +31,17 @@ export default class App extends Component {
     })
   }
 
-  deletePlayer = index => {
-    const players = this.state.players
-    this.setState(
-      {
-        players: [...players.slice(0, index), ...players.slice(index + 1)],
-      },
-      this.savePlayers
-    )
-  }
-
-  backToStart = () => {
-    this.setState(
-      {
-        players: [],
-      },
-      this.savePlayers
-    )
-  }
-
-  saveRound = () => {
-    this.setState({
-      players: this.state.players.map(player => ({
-        ...player,
-        score: [player.roundscore, ...player.score],
-        roundscore: 0,
-        // round: this.state.players.round + 1,
-      })),
-    })
-  }
-
   renderActiveGame = () => {
     return (
       <GameScreen
         players={store.getState().players}
-        updateScore={this.updateScore}
-        deletePlayer={this.deletePlayer}
-        resetScore={this.resetScore}
-        backToStart={this.backToStart}
-        startSummary={this.startSummary}
-        saveRound={this.saveRound}
+        updateScore={(index, value) =>
+          store.dispatch(updateScore({ index, value }))
+        }
+        deletePlayer={() => store.dispatch(deletePlayer())}
+        resetScore={() => store.dispatch(resetScore())}
+        deleteAllPlayers={() => store.dispatch(deleteAllPlayers())}
+        saveRound={() => store.dispatch(saveRound())}
       />
     )
   }
@@ -69,8 +52,7 @@ export default class App extends Component {
         players={store.getState().players}
         addPlayer={name => store.dispatch(addPlayer({ name }))}
         deletePlayer={index => store.dispatch(deletePlayer({ index }))}
-        startSummary={this.startSummary}
-        deleteAll={this.deleteAll}
+        deleteAll={() => store.dispatch(deleteAllPlayers())}
       />
     )
   }
@@ -79,10 +61,8 @@ export default class App extends Component {
     return (
       <SummaryScreen
         players={store.getState().players}
-        backToGame={this.backToGame}
-        startGame={this.startGame}
-        saveRound={this.saveRound}
-        backToStart={this.backToStart}
+        saveRound={() => store.dispatch(saveRound())}
+        deleteAllPlayers={() => store.dispatch(deleteAllPlayers())}
       />
     )
   }
@@ -90,11 +70,11 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        <div className="app">
+        <StyledApp>
           <Route exact path="/" render={this.renderStartScreen} />
           <Route exact path="/summary" render={this.renderSummary} />
           <Route exact path="/game" render={this.renderActiveGame} />
-        </div>
+        </StyledApp>
       </Router>
     )
   }

@@ -12,7 +12,14 @@ injectGlobal`
     font-family: 'Roboto', sans-serif;
     background: #ccc;
   }
-
+  @media screen and (min-width: 425px) {
+  .app {
+    width: 400px;
+  }
+  body > * {
+  user-select: none;
+}
+}
 `
 
 ReactDOM.render(<App />, document.getElementById('root'))
