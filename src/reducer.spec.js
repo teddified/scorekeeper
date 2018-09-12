@@ -2,17 +2,6 @@ import reducer from './reducer'
 import ACTIONS from './actions'
 
 describe('reducer', () => {
-  it('always returns a state', () => {
-    const state = {
-      players: [{ foo: 'bar' }],
-    }
-
-    const action = { type: "i don't really exist" }
-
-    expect(reducer(state, { type: 'foo' })).toBe(state)
-    expect(reducer(state, {})).toBe(state)
-    expect(reducer(state)).toBe(state)
-  })
 
   describe(ACTIONS.ADD_PLAYER, () => {
     it('creates a player with a name', () => {

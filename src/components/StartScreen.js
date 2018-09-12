@@ -3,6 +3,7 @@ import PlayerSetup from './PlayerSetup'
 import { StyledButton } from './Button'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const StyledApp = styled.div`
   display: flex;
@@ -63,12 +64,23 @@ const StyledDeleteAllButton = styled.button`
 `
 
 export default class StartScreen extends Component {
+  static propTypes = {
+    players: PropTypes.array,
+    deletePlayer: PropTypes.func,
+    deleteAll: PropTypes.func,
+    addPlayer: PropTypes.func,
+  }
+
   renderUsername() {
     const { players, deletePlayer } = this.props
     return (
       <React.Fragment>
         {players.map((user, index) => (
-          <StyledListItems onClick={() => deletePlayer(index)} key={index}>
+          <StyledListItems
+            data-test-id="StartScreen-player"
+            onClick={() => deletePlayer(index)}
+            key={index}
+          >
             {user.name}
           </StyledListItems>
         ))}
@@ -82,7 +94,9 @@ export default class StartScreen extends Component {
       return (
         <React.Fragment>
           <Link to="/summary">
-            <StyledPlayButton>Play!</StyledPlayButton>
+            <StyledPlayButton data-test-id="StartScreen-playButton">
+              Play!
+            </StyledPlayButton>
           </Link>
           <StyledDeleteAllButton onClick={deleteAll}>
             Reset players
@@ -90,7 +104,11 @@ export default class StartScreen extends Component {
         </React.Fragment>
       )
     } else {
-      return <StyledLabel>Please enter player</StyledLabel>
+      return (
+        <StyledLabel data-test-id="StartScreen-hintText">
+          Please enter player
+        </StyledLabel>
+      )
     }
   }
 

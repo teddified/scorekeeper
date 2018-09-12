@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import User from './User'
 import Button from './Button'
 import ScoreUpdater from './ScoreUpdater'
+import PropTypes from 'prop-types'
 
 const StyledEditCard = styled.div`
   border: 2px solid #ddd;
@@ -20,6 +21,12 @@ const StyledScore = styled.div`
 `
 
 export default class EditCard extends Component {
+  static propTypes = {
+    updateScore: PropTypes.func,
+    deletePlayer: PropTypes.func,
+    player: PropTypes.array,
+  }
+
   renderCard() {
     const { updateScore, deletePlayer, player } = this.props
     console.log(player)

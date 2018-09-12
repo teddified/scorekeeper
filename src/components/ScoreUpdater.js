@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Button from './Button'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledScoreUpdater = styled.div`
   width: 100%;
@@ -11,6 +12,10 @@ const StyledScoreUpdater = styled.div`
   grid-gap: 10px;
 `
 export default class ScoreUpdater extends Component {
+  static propTypes = {
+    onClick: PropTypes.func,
+  }
+
   render() {
     const { onClick } = this.props
     return (

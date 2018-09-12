@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledResetButton = styled.button`
   align-self: center;
@@ -15,6 +16,10 @@ const StyledResetButton = styled.button`
 `
 
 export default class ResetButton extends Component {
+  static propTypes = {
+    onClick: PropTypes.func,
+    children: PropTypes.string,
+  }
   render() {
     return (
       <StyledResetButton

@@ -29,16 +29,16 @@ export default function(state = initialState, action = {}) {
         ],
       }
     case ACTIONS.UPDATE_SCORE:
-      const { index, value } = action.payload
-      const players = state.players
       return {
         players: [
-          ...players.slice(0, index),
+          ...state.players.slice(0, action.payload.index),
           {
-            ...players[index],
-            roundscore: players[index].roundscore + value,
+            ...state.players[action.payload.index],
+            roundscore:
+              state.players[action.payload.index].roundscore +
+              action.payload.value,
           },
-          ...players.slice(index + 1),
+          ...state.players.slice(action.payload.index + 1),
         ],
       }
     case ACTIONS.RESET_SCORE:

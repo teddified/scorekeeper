@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SummaryCard from './SummaryCard'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledBackButton = styled.button`
   width: 100px;
@@ -20,6 +21,11 @@ const StyledButtonSection = styled.div`
 `
 
 export default class SummaryScreen extends Component {
+  static propTypes = {
+    players: PropTypes.arrayOf(),
+    deleteAllPlayers: PropTypes.func,
+  }
+
   render() {
     const { players, deleteAllPlayers } = this.props
     return (

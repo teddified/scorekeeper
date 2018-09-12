@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import RoundBar from './RoundBar'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledSummaryCard = styled.div`
   margin-bottom: 10px;
@@ -19,6 +20,10 @@ const StyledPlayerHeader = styled.div`
 `
 
 export default class SummaryCard extends Component {
+  static propTypes = {
+    player: PropTypes.object,
+  }
+
   render() {
     const { player } = this.props
     const total =

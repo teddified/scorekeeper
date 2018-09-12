@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledRoundBar = styled.div`
   width: 400px;
@@ -30,6 +31,10 @@ const StyledPointSection = styled.div`
 `
 
 export default class RoundBar extends Component {
+  static propTypes = {
+    player: PropTypes.array,
+  }
+
   allRounds = () => {
     const { player } = this.props
     let roundscori = player.score
@@ -41,8 +46,8 @@ export default class RoundBar extends Component {
         ))}
       </React.Fragment>
 
-      // <StyledPointSection>{round}</StyledPointSection>
-      // <StyledPointSection key={index}>{round}</StyledPointSection>
+    // <StyledPointSection>{round}</StyledPointSection>
+    // <StyledPointSection key={index}>{round}</StyledPointSection>
     )
   }
 

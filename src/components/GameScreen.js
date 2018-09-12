@@ -3,6 +3,7 @@ import EditCard from './EditCard'
 import ResetButton from './ResetButton'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const StyledBackButton = styled.button`
   width: 100px;
@@ -30,6 +31,15 @@ const StyledButtonSection = styled.div`
 `
 
 export default class GameScreen extends Component {
+  static propTypes = {
+    players: PropTypes.array,
+    updateScore: PropTypes.func,
+    deletePlayer: PropTypes.func,
+    resetScore: PropTypes.func,
+    saveRound: PropTypes.func,
+    startSummary: PropTypes.func,
+  }
+
   renderEditCard() {
     const {
       players,
