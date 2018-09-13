@@ -2,7 +2,6 @@ import reducer from './reducer'
 import ACTIONS from './actions'
 
 describe('reducer', () => {
-
   describe(ACTIONS.ADD_PLAYER, () => {
     it('creates a player with a name', () => {
       const state = {
@@ -88,6 +87,19 @@ describe('reducer', () => {
 
       expect(reducer(state, action)).toEqual({
         players: [],
+      })
+    })
+  })
+  describe(ACTIONS.ADD_GAMENAME, () => {
+    it('add entry to gamename array', () => {
+      const state = {
+        gamename: [],
+      }
+
+      const action = { type: ACTIONS.ADD_GAMENAME, payload: ['test1', 'test2'] }
+
+      expect(reducer(state, action)).toEqual({
+        gamename: ['test1', 'test2'],
       })
     })
   })

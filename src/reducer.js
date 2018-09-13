@@ -2,6 +2,7 @@ import { load } from './services'
 import ACTIONS from './actions'
 
 const initialState = {
+  gamename: load('gamename') || [],
   players: load('players') || [],
 }
 
@@ -30,6 +31,7 @@ export default function(state = initialState, action = {}) {
       }
     case ACTIONS.UPDATE_SCORE:
       return {
+        ...state,
         players: [
           ...state.players.slice(0, action.payload.index),
           {
@@ -43,6 +45,7 @@ export default function(state = initialState, action = {}) {
       }
     case ACTIONS.RESET_SCORE:
       return {
+        ...state,
         players: state.players.map(player => ({
           ...player,
           roundscore: 0,
@@ -58,6 +61,11 @@ export default function(state = initialState, action = {}) {
             roundscore: 0,
           }
         }),
+      }
+    case ACTIONS.ADD_GAMENAME:
+      return {
+        ...state,
+        gamename: [...state.gamename, action.payload.newGame],
       }
     default:
       return state

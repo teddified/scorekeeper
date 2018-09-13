@@ -22,7 +22,7 @@ const StyledButtonSection = styled.div`
 
 export default class SummaryScreen extends Component {
   static propTypes = {
-    players: PropTypes.arrayOf(),
+    players: PropTypes.array,
     deleteAllPlayers: PropTypes.func,
   }
 

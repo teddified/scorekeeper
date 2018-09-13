@@ -29,13 +29,11 @@ export default class EditCard extends Component {
 
   renderCard() {
     const { updateScore, deletePlayer, player } = this.props
-    console.log(player)
     return (
       <StyledEditCard>
         <div className="title">
           <User player={player} />
           <StyledScore>{player.roundscore}</StyledScore>
-          {/* <Score player={player} /> */}
         </div>
         <ScoreUpdater onClick={updateScore} />
         <Button onClick={deletePlayer}>delete</Button>

@@ -32,7 +32,7 @@ const StyledPointSection = styled.div`
 
 export default class RoundBar extends Component {
   static propTypes = {
-    player: PropTypes.array,
+    player: PropTypes.object,
   }
 
   allRounds = () => {
@@ -46,8 +46,8 @@ export default class RoundBar extends Component {
         ))}
       </React.Fragment>
 
-    // <StyledPointSection>{round}</StyledPointSection>
-    // <StyledPointSection key={index}>{round}</StyledPointSection>
+      // <StyledPointSection>{round}</StyledPointSection>
+      // <StyledPointSection key={index}>{round}</StyledPointSection>
     )
   }
 

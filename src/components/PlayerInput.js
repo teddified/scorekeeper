@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-export default class PlayerSetup extends Component {
+export default class PlayerInput extends Component {
   static propTypes = {
-    onSubmit: PropTypes.function,
+    onSubmit: PropTypes.func,
   }
 
   state = {

@@ -47,7 +47,6 @@ export default class GameScreen extends Component {
       deletePlayer,
       resetScore,
       saveRound,
-      startSummary,
     } = this.props
 
     return (
@@ -60,7 +59,6 @@ export default class GameScreen extends Component {
               players={players}
               updateScore={value => updateScore(index, value)}
               deletePlayer={() => deletePlayer(index)}
-              startSummary={startSummary}
             />
           )
         })}
