@@ -10,6 +10,6 @@ Its an App to save Game Scores over multiple rounds (e.g. Phase 10)
 - Styled Components
 
 # Getting Started
-`$ git clone <url>`
-`$ npm install`
-`$ npm start`
+- `$ git clone <url>`
+- `$ npm install`
+- `$ npm start`
